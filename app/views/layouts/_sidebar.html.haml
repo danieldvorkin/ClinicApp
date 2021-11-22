@@ -1,0 +1,31 @@
+#sidebar.c-sidebar.c-sidebar-dark.c-sidebar-fixed.c-sidebar-lg-show
+  .c-sidebar-brand.d-md-down-none
+    %i.fas.fa-home
+    %span.c-sidebar-brand-full= "&nbsp;CLINIC APP".html_safe
+  %ul.c-sidebar-nav
+    - unless current_user
+      %li.c-sidebar-nav-item
+        = link_to new_user_session_path, class: 'c-sidebar-nav-link' do
+          %i.fas.fa-sign-in-alt.c-sidebar-nav-icon
+          Login
+      %li.c-sidebar-nav-item
+        = link_to new_user_registration_path, class: 'c-sidebar-nav-link' do
+          %i.fas.fa-user-plus.c-sidebar-nav-icon
+          Sign Up
+    - else
+      %li.c-sidebar-nav-title= "&nbsp;GENERAL".html_safe
+      %li.c-sidebar-nav-item
+        = link_to root_path, class: 'c-sidebar-nav-link' do
+          %i.fas.fa-home.c-sidebar-nav-icon
+          Home
+
+      %li.c-sidebar-nav-title= "&nbsp;ACCOUNT".html_safe
+      %li.c-sidebar-nav-item
+        = link_to edit_registration_path(current_user), class: 'c-sidebar-nav-link' do
+          %i.fas.fa-user-alt.c-sidebar-nav-icon
+          Profile
+        = link_to destroy_user_session_path, method: :delete, class: 'c-sidebar-nav-link' do
+          %i.fas.fa-sign-out-alt.c-sidebar-nav-icon
+          Logout
+
+  %button.c-sidebar-minimizer.c-class-toggler{"data-class" => "c-sidebar-minimized", "data-target" => "_parent", :type => "button"}

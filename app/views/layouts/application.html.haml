@@ -1,0 +1,26 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %meta{:content => "text/html; charset = iso-8859-1", "http-equiv" => "Content-Type"}/
+    %meta{:content => "en-us", "http-equiv" => "Content-Language"}/
+    %title Clinic App
+
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+
+    %link{:href => "https://coreui.io/demo/free/3.4.0/css/style.css", :rel => "stylesheet"}/
+    %script{:crossorigin => "anonymous", :src => "https://kit.fontawesome.com/831259ec93.js"}
+    = javascript_include_tag "https://coreui.io/demo/free/3.4.0/vendors/@coreui/coreui/js/coreui.bundle.min.js", "https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
+  %body.c-app
+    = render partial: 'layouts/sidebar'
+    .c-wrapper
+      %header.c-header
+        / Header content here
+      .c-body
+        %main.c-main.pt-4
+          .container-fluid
+            .fade-in
+              .card
+                %h5.card-header= content_for?(:page_title) ? content_for(:page_title) : "#{controller.action_name} #{controller.controller_name.singularize}".titleize
+                .card-body
+                  = yield
