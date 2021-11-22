@@ -4,22 +4,26 @@ class UserPolicy < ApplicationPolicy
   end
 
   def users?
-    user.admin?
-  end
-
-  def user?
-    user.admin?
-  end
-
-  def update_role?
-    user != record && user.admin?
+    check_for_admin
   end
 
   def assessments?
-    user.admin?
+    check_for_admin
+  end
+  
+  def user?
+    check_for_admin
+  end
+
+  def update_role?
+    user != record && check_for_admin
   end
 
   def can_edit?
     user == record
+  end
+
+  def check_for_admin
+    user.admin?
   end
 end

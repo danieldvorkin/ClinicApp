@@ -24,3 +24,24 @@
   top: 10px;
   position: relative;
 }
+
+.c-sidebar {
+  background: grey !important;
+  .c-sidebar-nav-link:hover,
+  .c-sidebar-nav-dropdown-toggle:hover {
+      color: #fff;
+      background: silver !important;
+  }
+
+}
+
+.c-app {
+  --primary: #39f;
+  --secondary: #ced2d8;
+  --success: #2eb85c;
+  --info: #39f;
+  --warning: #f9b115;
+  --danger: #e55353;
+  --light: #ebedef;
+  --dark: #636f83;
+}
