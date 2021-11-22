@@ -1,0 +1,21 @@
+= form_for @assessment do |f|
+  - if @assessment.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@assessment.errors.count, "error")} prohibited this assessment from being saved:"
+      %ul
+        - @assessment.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :desc
+    = f.text_area :desc, class: 'form-control'
+  .form-check.form-check-inline
+    = f.check_box :active, checked: true, class: 'form-check-input'
+    = f.label :active, class: 'form-check-label'
+
+    = f.hidden_field :created_by_id, value: current_user.id
+  .actions
+    = f.submit 'Save'

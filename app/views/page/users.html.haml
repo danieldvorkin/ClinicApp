@@ -1,0 +1,24 @@
+%table.table
+  %thead
+    %tr
+      %th Email
+      %th Role
+      %th Assessments
+      %th Signed Up
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td= link_to user.email, profile_path(uuid: user.uuid)
+        %td
+          - if policy(user).update_role?
+            = form_for(:update_role, url: update_role_path(uuid: user.uuid), html: { method: :post }) do |f|
+              = f.select :role, options_for_select(['Admin', 'Client'], user.admin? ? 'Admin' : 'Client'), {}, class: 'form-control role_select'
+        %td= user.assessments.count
+        %td= user.created_at
+
+:javascript
+  $(function(){
+    $('.table').on('change', '.role_select', function(){
+      $(this).parent('form').submit();
+    });
+  });

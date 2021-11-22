@@ -1,0 +1,27 @@
+- content_for(:page_title, "All Assessments")
+
+%h1 Listing assessments
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Desc
+      %th.text-center Active
+      %th Created by
+  %tbody
+    - @assessments.each do |assessment|
+      %tr
+        %td
+          .dropdown{:style => 'border: 1px solid silver;border-radius: 5px;'}
+            %button#dropdownMenuButton.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
+              = assessment.name
+            .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+              = link_to 'View', assessment, class: 'dropdown-item'
+              = link_to 'Edit', edit_assessment_path(assessment), class: 'dropdown-item'
+        %td= assessment.desc&.truncate(20)
+        %td.text-center= assessment.active ? "<i class='fa fa-dot-circle text-success'></i>".html_safe : "<i class='fa fa-dot-circle text-danger'></i>".html_safe
+        %td= assessment.created_by.email
+%br
+
+= link_to 'New Assessment', new_assessment_path

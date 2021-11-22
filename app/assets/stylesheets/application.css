@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+.dropdown-toggle {
+  width: 100%;
+  text-align: left !important;
+}
+
+.dropdown-toggle::after {
+  float: right;
+  top: 10px;
+  position: relative;
+}

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @assessment.name
+%p
+  %b Desc:
+  = @assessment.desc
+%p
+  %b Active:
+  = @assessment.active
+%p
+  %b Created by:
+  = @assessment.created_by_id
+
+= link_to 'Edit', edit_assessment_path(@assessment)
+\|
+= link_to 'Back', assessments_path

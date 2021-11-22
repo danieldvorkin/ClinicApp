@@ -5,12 +5,22 @@
     %meta{:content => "en-us", "http-equiv" => "Content-Language"}/
     %title Clinic App
 
+    = csrf_meta_tags
+    = csp_meta_tag
+
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+
+    %link{:href => "https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"}
+    %script{:src => "https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"}
+    
+    %link{:href => "https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css", :rel => "stylesheet", :type => "text/css"}/
+    %script{:charset => "utf8", :src => "https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js", :type => "text/javascript"}
 
     %link{:href => "https://coreui.io/demo/free/3.4.0/css/style.css", :rel => "stylesheet"}/
     %script{:crossorigin => "anonymous", :src => "https://kit.fontawesome.com/831259ec93.js"}
     = javascript_include_tag "https://coreui.io/demo/free/3.4.0/vendors/@coreui/coreui/js/coreui.bundle.min.js", "https://cdn.jsdelivr.net/npm/chart.js@3.5.0/dist/chart.min.js"
+
   %body.c-app
     = render partial: 'layouts/sidebar'
     .c-wrapper

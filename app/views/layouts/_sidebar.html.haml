@@ -18,13 +18,22 @@
         = link_to root_path, class: 'c-sidebar-nav-link' do
           %i.fas.fa-home.c-sidebar-nav-icon
           Home
-
+      - if policy(current_user).users?
+        %li.c-sidebar-nav-item
+          = link_to users_path, class: 'c-sidebar-nav-link' do
+            %i.fas.fa-users.c-sidebar-nav-icon
+            Users
+      - if policy(current_user).assessments?
+        %li.c-sidebar-nav-item
+          = link_to assessments_path, class: 'c-sidebar-nav-link' do
+            %i.fas.fa-list-alt.c-sidebar-nav-icon
+            Assessments
       %li.c-sidebar-nav-title= "&nbsp;ACCOUNT".html_safe
       %li.c-sidebar-nav-item
         = link_to edit_registration_path(current_user), class: 'c-sidebar-nav-link' do
           %i.fas.fa-user-alt.c-sidebar-nav-icon
           Profile
-        = link_to destroy_user_session_path, method: :delete, class: 'c-sidebar-nav-link' do
+        = link_to destroy_user_session_path, class: 'c-sidebar-nav-link' do
           %i.fas.fa-sign-out-alt.c-sidebar-nav-icon
           Logout
 
