@@ -18,4 +18,8 @@ class UserPolicy < ApplicationPolicy
   def assessments?
     user.admin?
   end
+
+  def can_edit?
+    user == record
+  end
 end
