@@ -8,13 +8,16 @@
   %tbody
     - @users.each do |user|
       %tr
-        %td= link_to user.email, profile_path(uuid: user.uuid)
+        %td.text= link_to user.email, profile_path(uuid: user.uuid), class: "#{user == current_user ? 'text-danger' : 'text-default'}"
         %td
           - if policy(user).update_role?
             = form_for(:update_role, url: update_role_path(uuid: user.uuid), html: { method: :post }) do |f|
               = f.select :role, options_for_select(['Admin', 'Client'], user.admin? ? 'Admin' : 'Client'), {}, class: 'form-control role_select'
-        %td= user.assessments.count
-        %td= user.created_at
+          - else
+            = form_for(:update_role, url: update_role_path(uuid: user.uuid), html: { method: :post }) do |f|
+              = f.select :role, options_for_select(user.admin? ? ['Admin'] : ['Client'], user.admin? ? 'Admin' : 'Client'), {}, class: 'form-control role_select', disabled: true
+        %td.text= user.assessments.count
+        %td.text= user.created_at.strftime('%Y-%m-%d %H:%M')
 
 :javascript
   $(function(){

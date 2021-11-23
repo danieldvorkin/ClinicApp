@@ -56,6 +56,36 @@ class AssessmentsController < ApplicationController
     end
   end
 
+  def my_assessments
+    @assessments = current_user.assigned_assessments
+  end
+
+  def new_assignment
+    assessment = Assessment.find params[:assessment_id]
+    user_ids = params[:assignments].keys.map {|i| !i.include?("_") ? i : nil}.compact
+    users = User.where(id: user_ids)
+    
+    users.each do |user|
+      if params[:assignments][:"#{user.id}_assign"] == "1"
+        AssignedAssessment.create({ assessment_id: assessment.id, user_id: user.id })
+      end
+    end
+
+    redirect_to request.referrer + "#assignments"
+  end
+
+  def remove_assignment
+    assessment = Assessment.find params[:assessment_id]
+    user_ids = params[:assignments].keys.map {|i| !i.include?("_") ? i : nil}.compact
+    assignments = AssignedAssessment.where(assessment_id: assessment.id, user_id: user_ids)
+    
+    assignments.each do |a| 
+      a.destroy if params[:assignments][:"#{a.user_id}_assign"] == "1"
+    end
+
+    redirect_to request.referrer + "#assignments"
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assessment
@@ -64,6 +94,6 @@ class AssessmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def assessment_params
-      params.require(:assessment).permit(:name, :desc, :active, :created_by_id, question_attributes: [:id, :question, :assessment_id, :caption])
+      params.require(:assessment).permit(:name, :desc, :active, :created_by_id, questions_attributes: [:id, :question, :assessment_id, :caption, :option_type])
     end
 end

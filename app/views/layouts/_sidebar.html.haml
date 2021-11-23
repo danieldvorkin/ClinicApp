@@ -28,6 +28,10 @@
           = link_to assessments_path, class: 'c-sidebar-nav-link' do
             %i.fas.fa-list-alt.c-sidebar-nav-icon
             Assessments
+      %li.c-sidebar-nav-item
+        = link_to my_assessments_path, class: 'c-sidebar-nav-link' do
+          %i.fas.fa-list.c-sidebar-nav-icon
+          My Assessments
       %li.c-sidebar-nav-title= "&nbsp;ACCOUNT".html_safe
       %li.c-sidebar-nav-item
         = link_to edit_registration_path(current_user), class: 'c-sidebar-nav-link' do

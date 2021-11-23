@@ -1,18 +1,83 @@
+:css
+  .dataTables_length {
+    display: none;
+  }
+
 %p#notice= notice
 
-%p
-  %b Name:
-  = @assessment.name
-%p
-  %b Desc:
-  = @assessment.desc
-%p
-  %b Active:
-  = @assessment.active
-%p
-  %b Created by:
-  = @assessment.created_by_id
-
-= link_to 'Edit', edit_assessment_path(@assessment)
-\|
-= link_to 'Back', assessments_path
+.card
+  .card-header
+    %h4 Details
+  .card-body
+    .row
+      .col-6
+        %p
+          %b Name:
+          = @assessment.name
+        %p
+          %b Desc:
+          = @assessment.desc
+        %p
+          %b Active:
+          = @assessment.active
+        %p
+          %b Created by:
+          = @assessment.created_by&.email
+        %p
+          %b Questions:
+          %br
+          - @assessment.questions.each_with_index do |question, index|
+            %i= "#{index + 1}. #{question.question} #{question.caption.present? ? '[' : ''}#{question.caption}#{question.caption.present? ? ']' : ''}:<br/><strong class='ml-4'>#{question.option_type}</strong>".html_safe
+            %br
+.card#assignments
+  .card-header
+    .float-left
+      %h4 Assigned Assessments
+  .card-body
+    .row
+      .col-6
+        .card
+          = form_for(:assignments, url: new_assignment_path(assessment_id: @assessment.id), method: :post) do |f|
+            .card-header
+              %h4 Available Users
+            .card-body
+              %table.table
+                %thead
+                  %tr
+                    %th{:style => 'width: 10%;'} ID
+                    %th Email
+                %tbody
+                  - User.all.each do |user|
+                    - unless @assessment.assigned_assessments.map(&:user_id).include?(user.id)
+                      %tr
+                        = f.hidden_field :"#{user.id}", value: user.id
+                        %td= f.check_box :"#{user.id}_assign"
+                        %td= user.email
+            .card-footer
+              = f.submit "Assign", class: 'btn btn-info float-right mb-2'
+      .col-6
+        .card
+          = form_for(:assignments, url: remove_assignment_path(assessment_id: @assessment.id), method: :delete) do |f|
+            .card-header
+              %h4 Assigned Users
+            .card-body
+              %table.table
+                %thead
+                  %tr
+                    %th{:style => 'width: 10%;'} ID
+                    %th Email
+                %tbody
+                  - User.all.each do |user|
+                    - if @assessment.assigned_assessments.map(&:user_id).include?(user.id)
+                      %tr
+                        = f.hidden_field :"#{user.id}", value: user.id
+                        %td= f.check_box :"#{user.id}_assign"
+                        %td= user.email
+            .card-footer
+              = f.submit "Remove", class: 'btn btn-danger float-right mb-2'
+              
+.row
+  .col-12
+    = link_to 'Edit', edit_assessment_path(@assessment)
+    \|
+    = link_to 'Back', assessments_path
