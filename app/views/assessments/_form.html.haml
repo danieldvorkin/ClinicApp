@@ -6,16 +6,28 @@
         - @assessment.errors.full_messages.each do |message|
           %li= message
 
-  .form-group
-    = f.label :name
-    = f.text_field :name, class: 'form-control'
-  .form-group
-    = f.label :desc
-    = f.text_area :desc, class: 'form-control'
-  .form-check.form-check-inline
-    = f.check_box :active, checked: true, class: 'form-check-input'
-    = f.label :active, class: 'form-check-label'
+  .container-fluid.pt-4
+    .form-group.row
+      = f.label :name, "Assessment Name: ", class: 'col-2'
+      .col-10
+        = f.text_field :name, class: 'form-control'
+    .form-group.row
+      = f.label :desc, "Description: ", class: 'col-2'
+      .col-10
+        = f.text_area :desc, class: 'form-control', rows: 8
+    .form-group.row
+      #questions
+        = f.fields_for :questions do |question|
+          .col-12
+            = render 'question_fields', f: question
+        .links
+          = link_to_add_association '+', f, :questions
 
     = f.hidden_field :created_by_id, value: current_user.id
-  .actions
-    = f.submit 'Save'
+  .actions.mt-4.pt-4.float-right
+    .row
+      .col-7.pt-2
+        = f.label :active, "Activate", class: ''
+        = f.check_box :active, checked: true, class: ''
+      .col-5
+        = f.submit 'Save', class: 'btn btn-info'

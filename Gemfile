@@ -32,6 +32,7 @@ gem 'active_scaffold'
 gem 'pundit'
 gem 'jquery-rails'
 gem 'uuidable'
+gem "cocoon"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
