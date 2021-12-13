@@ -1,9 +1,9 @@
-.nested-fields
-  .field.form-group
+.nested-fields.row
+  .field.form-group.col-6
     = f.label :question
-    = f.text_field :question, class: 'form-control'
-  .field.form-group
+    = f.text_area :question, class: 'form-control'
+  .field.form-group.col-5
     = f.label :caption
-    = f.text_field :caption, class: 'form-control'
-
-  = link_to_remove_association "X", f
+    = f.text_area :caption, class: 'form-control'
+  .field.form-group.col-1
+    = link_to_remove_association "X", f, class: 'form-control btn btn-danger', style: 'margin-top: 28px;'
