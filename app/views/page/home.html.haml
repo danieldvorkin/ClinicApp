@@ -1,1 +1,62 @@
 - content_for(:page_title, "Home")
+
+%h1 All Users
+%table.table
+  %thead
+    %tr
+      %th Email
+      %th Role
+      %th Assessments
+      %th Signed Up
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td.text= link_to user.email, profile_path(uuid: user.uuid), class: "#{user == current_user ? 'text-danger' : 'text-default'}"
+        %td
+          - if policy(user).update_role?
+            = form_for(:update_role, url: update_role_path(uuid: user.uuid), html: { method: :post }) do |f|
+              = f.select :role, options_for_select(['Admin', 'Client'], user.admin? ? 'Admin' : 'Client'), {}, class: 'form-control role_select'
+          - else
+            = form_for(:update_role, url: update_role_path(uuid: user.uuid), html: { method: :post }) do |f|
+              = f.select :role, options_for_select(user.admin? ? ['Admin'] : ['Client'], user.admin? ? 'Admin' : 'Client'), {}, class: 'form-control role_select', disabled: true
+        %td.text= user.assessments.count
+        %td.text= user.created_at.strftime('%Y-%m-%d %H:%M')
+
+%br
+%br
+%hr
+%br
+%br
+
+
+%h1 Listing assessments
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Desc
+      %th.text-center Active
+      %th Created by
+  %tbody
+    - @assessments.each do |assessment|
+      %tr
+        %td
+          .dropdown{:style => 'border: 1px solid silver;border-radius: 5px;'}
+            %button#dropdownMenuButton.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :type => "button"}
+              = assessment.name
+            .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+              = link_to 'View', assessment, class: 'dropdown-item'
+              = link_to 'Edit', edit_assessment_path(assessment), class: 'dropdown-item'
+        %td.text= assessment.desc&.truncate(20)
+        %td.text.text-center= assessment.active ? "<i class='fa fa-dot-circle text-success'></i>".html_safe : "<i class='fa fa-dot-circle text-danger'></i>".html_safe
+        %td.text= assessment.created_by&.email
+%br
+
+= link_to 'New Assessment', new_assessment_path, class: 'btn btn-success'
+
+:javascript
+  $(function(){
+    $('.table').on('change', '.role_select', function(){
+      $(this).parent('form').submit();
+    });
+  });

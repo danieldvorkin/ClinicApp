@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_22_231856) do
+ActiveRecord::Schema.define(version: 2021_12_13_191529) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
   enable_extension "plpgsql"
+
+  create_table "active_assessments", force: :cascade do |t|
+    t.integer "assessment_id"
+    t.integer "user_id"
+    t.string "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.hstore "results"
+  end
 
   create_table "assessments", force: :cascade do |t|
     t.string "name"
@@ -24,12 +34,21 @@ ActiveRecord::Schema.define(version: 2021_11_22_231856) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "assigned_assessments", force: :cascade do |t|
+    t.integer "assessment_id"
+    t.integer "user_id"
+    t.string "status", default: "Not Started"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.text "question"
     t.integer "assessment_id"
     t.string "caption"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "option_type"
   end
 
   create_table "users", force: :cascade do |t|

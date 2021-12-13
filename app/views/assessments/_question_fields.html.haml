@@ -1,9 +1,12 @@
-.nested-fields.row
-  .field.form-group.col-6
+.nested-fields.row{style: 'width:100%;'}
+  .field.col-6
     = f.label :question
-    = f.text_area :question, class: 'form-control'
-  .field.form-group.col-5
+    = f.text_field :question, class: 'form-control'
+  .field.col-3
     = f.label :caption
-    = f.text_area :caption, class: 'form-control'
-  .field.form-group.col-1
-    = link_to_remove_association "X", f, class: 'form-control btn btn-danger', style: 'margin-top: 28px;'
+    = f.text_field :caption, class: 'form-control'
+  .field.col-2
+    = f.label :option_type
+    = f.select :option_type, options_for_select(["Agree/Disagree", "1-5", "1-10", "Yes/No", "Yes/No/Maybe"]), {}, class: 'form-control'
+  .field.col-1.mt-4.pt-2.text-center
+    = link_to_remove_association "<i class='fa fa-times fa-2x text-danger'></i>".html_safe, f

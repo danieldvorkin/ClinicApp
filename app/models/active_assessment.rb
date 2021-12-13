@@ -1,0 +1,2 @@
+class ActiveAssessment < ApplicationRecord
+end

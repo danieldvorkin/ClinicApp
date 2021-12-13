@@ -15,13 +15,13 @@
       = f.label :desc, "Description: ", class: 'col-2'
       .col-10
         = f.text_area :desc, class: 'form-control', rows: 8
-    .form-group.row
-      #questions.col-12
+    .form-group 
+      #questions
+        %h5 Questions
         = f.fields_for :questions do |question|
-          .col-12
-            = render 'question_fields', f: question
-        .links
-          = link_to_add_association 'Add Question', f, :questions, class: 'btn btn-primary', style: 'width: 100%;'
+          = render 'question_fields', f: question
+        .links.mt-4
+          = link_to_add_association "<i class='fa fa-plus'></i> Add Question".html_safe, f, :questions, class: 'btn btn-info'
 
     = f.hidden_field :created_by_id, value: current_user.id
   .actions.mt-4.pt-4.float-right

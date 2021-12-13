@@ -2,6 +2,8 @@ class PageController < ApplicationController
   def home
     if current_user
       authorize current_user
+      @users = User.all
+      @assessments = Assessment.all
     else
       redirect_to new_user_session_path
     end
