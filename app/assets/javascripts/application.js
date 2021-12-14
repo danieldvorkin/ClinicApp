@@ -4,5 +4,7 @@
 //= require_tree .
 
 $(function(){
-  $('.table').DataTable();
+  $('.table').DataTable({
+    responsive: true
+  });
 })

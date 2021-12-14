@@ -35,13 +35,13 @@
       %h4 Assigned Assessments
   .card-body
     .row
-      .col-6
+      .col-lg-6
         .card
           = form_for(:assignments, url: new_assignment_path(assessment_id: @assessment.id), method: :post) do |f|
             .card-header
               %h4 Available Users
             .card-body
-              %table.table
+              %table.table.table-responsive
                 %thead
                   %tr
                     %th{:style => 'width: 10%;'} ID
@@ -55,13 +55,13 @@
                         %td= user.email
             .card-footer
               = f.submit "Assign", class: 'btn btn-info float-right mb-2'
-      .col-6
+      .col-lg-6
         .card
           = form_for(:assignments, url: remove_assignment_path(assessment_id: @assessment.id), method: :delete) do |f|
             .card-header
               %h4 Assigned Users
             .card-body
-              %table.table
+              %table.table.table-responsive
                 %thead
                   %tr
                     %th{:style => 'width: 10%;'} ID
