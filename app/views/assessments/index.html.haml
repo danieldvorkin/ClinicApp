@@ -2,13 +2,13 @@
 
 %h1 Listing assessments
 
-%table.table.table-responsive
+%table.table
   %thead
     %tr
-      %th{style: 'min-width: 300px;'} Name
-      %th{style: 'min-width: 400px;'} Desc
-      %th.text-center{style: 'min-width: 100px;'} Active
-      %th{style: 'min-width: 200px;'} Created by
+      %th Name
+      %th Desc
+      %th.text-center Active
+      %th Created by
   %tbody
     - @assessments.each do |assessment|
       %tr

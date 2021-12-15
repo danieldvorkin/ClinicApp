@@ -2,13 +2,13 @@
 
 - if current_user.admin?
   %h1 All Users
-  %table.table.table-responsive
+  %table.table
     %thead
       %tr
-        %th{style: 'min-width: 300px;'} Email
-        %th{style: 'min-width: 100px;'} Role
-        %th{style: 'min-width: 400px;'} Assessments
-        %th{style: 'min-width: 150px;'} Signed Up
+        %th Email
+        %th Role
+        %th Assessments
+        %th Signed Up
     %tbody
       - @users.each do |user|
         %tr
@@ -31,13 +31,13 @@
 
 
   %h1 Listing assessments
-  %table.table.table-responsive
+  %table.table
     %thead
       %tr
-        %th{style: 'min-width: 300px;'} Name
-        %th{style: 'min-width: 400px;'} Desc
-        %th.text-center{style: 'min-width: 100px;'} Active
-        %th{style: 'min-width: 200px;'} Created by
+        %th Name
+        %th Desc
+        %th.text-center Active
+        %th Created by
     %tbody
       - @assessments.each do |assessment|
         %tr
@@ -56,7 +56,7 @@
   = link_to 'New Assessment', new_assessment_path, class: 'btn btn-success'
 - else
   %p under construction
-  
+
 :javascript
   $(function(){
     $('.table').on('change', '.role_select', function(){
