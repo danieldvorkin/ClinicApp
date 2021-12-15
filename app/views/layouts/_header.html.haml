@@ -5,19 +5,20 @@
     %i.fas.fa-bars
   
   %ul.c-header-nav.ml-auto.mr-4
-    %li.c-header-nav-item.d-md-down-none.mx-2
-      %p{:style => 'margin-bottom:0px;'}
-        Logged in:
-        = current_user.email
-    %li.c-header-nav-item.dropdown
-      %a.c-header-nav-link{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-        Account
-      .dropdown-menu.dropdown-menu-right.pt-0
-        .dropdown-header.bg-light.py-2
-          %strong Options
-        = link_to edit_user_registration_path, class: 'dropdown-item' do
-          %i.fas.fa-user.c-sidebar-nav-icon
-          Details
-        = link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do
-          %i.fas.fa-sign-out-alt.c-sidebar-nav-icon
-          Logout
+    - if current_user
+      %li.c-header-nav-item.d-md-down-none.mx-2
+        %p{:style => 'margin-bottom:0px;'}
+          Logged in:
+          = current_user&.email
+      %li.c-header-nav-item.dropdown
+        %a.c-header-nav-link{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+          Account
+        .dropdown-menu.dropdown-menu-right.pt-0
+          .dropdown-header.bg-light.py-2
+            %strong Options
+          = link_to edit_user_registration_path, class: 'dropdown-item' do
+            %i.fas.fa-user.c-sidebar-nav-icon
+            Details
+          = link_to destroy_user_session_path, method: :delete, class: 'dropdown-item' do
+            %i.fas.fa-sign-out-alt.c-sidebar-nav-icon
+            Logout
