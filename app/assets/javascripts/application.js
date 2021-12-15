@@ -5,6 +5,10 @@
 
 $(function(){
   $('.table').DataTable({
-    responsive: true
+    responsive: {
+      details: {
+        display: $.fn.dataTable.Responsive.display.childRowImmediate
+      }
+    }
   });
 })

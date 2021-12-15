@@ -52,3 +52,12 @@
   }
   // min-height: 300px;
 }
+
+@media only screen and (max-width: 600px) {
+  .dropdown-toggle::after {
+    float: initial;
+    top: 0px;
+    position: relative;
+  }
+  
+}
